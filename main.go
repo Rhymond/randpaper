@@ -5,7 +5,6 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"os/user"
 	"path/filepath"
 	"strconv"
 	"time"
@@ -59,7 +58,7 @@ func change() {
 }
 
 func downloadImage(url string) (string, error) {
-	cacheDir, err := getCacheDir()
+	cacheDir, err := os.UserCacheDir()
 	if err != nil {
 		return "", err
 	}
@@ -76,6 +75,7 @@ func downloadImage(url string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	defer res.Body.Close()
 	if res.StatusCode < 200 || res.StatusCode >= 300 {
 		return "", errors.New("non-200 status code")
@@ -92,13 +92,4 @@ func downloadImage(url string) (string, error) {
 	}
 
 	return filename, nil
-}
-
-func getCacheDir() (string, error) {
-	usr, err := user.Current()
-	if err != nil {
-		return "", err
-	}
-
-	return filepath.Join(usr.HomeDir, "Library", "Caches"), nil
 }
