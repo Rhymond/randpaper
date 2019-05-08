@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/getlantern/systray"
-	"github.com/getlantern/systray/example/icon"
 	"github.com/reujab/wallpaper"
 )
 
@@ -21,7 +20,7 @@ func main() {
 }
 
 func onReady() {
-	systray.SetIcon(icon.Data)
+	systray.SetIcon(Icon)
 	systray.SetTooltip("RandPaper")
 	mChange := systray.AddMenuItem("Change Wallpaper", "Change Wallpaper")
 	mQuit := systray.AddMenuItem("Quit", "Quit the whole app")
